@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Iron Guide — Workouts & Diet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDEFF1; --surface:#FFFFFF; --ink:#18212B; --muted:#5B6673; --line:#D3D8DE;
+  --push:#C8102E; --pull:#1F4FA8; --legs:#E0A100; --core:#1E8A4C;
+  --tab:#FFFFFF;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14191F; --surface:#1E252D; --ink:#E9EDF1; --muted:#9AA5B1; --line:#2E3842;
+    --push:#FF4D5E; --pull:#5B8DEF; --legs:#F2BE2E; --core:#3CC47A; --tab:#1A2027;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14191F; --surface:#1E252D; --ink:#E9EDF1; --muted:#9AA5B1; --line:#2E3842;
+  --push:#FF4D5E; --pull:#5B8DEF; --legs:#F2BE2E; --core:#3CC47A; --tab:#1A2027;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;margin:0;line-height:1.05}
+button{font:inherit;color:inherit}
+main{max-width:720px;margin:0 auto;padding:20px 18px 110px}
+.hero h1{font-size:clamp(44px,13vw,72px);font-weight:800;letter-spacing:-.5px}
+.hero p{color:var(--muted);margin:6px 0 22px;max-width:46ch}
+.plates{display:flex;gap:6px;margin-bottom:14px}
+.plates span{width:34px;height:10px;border-radius:5px}
+.region{margin:26px 0 10px;font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+.region i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.muscle{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;padding:14px;text-align:left;cursor:pointer}
+.muscle b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:700}
+.muscle small{color:var(--muted)}
+.muscle:focus-visible,.ex summary:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--pull);outline-offset:2px}
+.back{background:none;border:0;color:var(--muted);padding:6px 0;cursor:pointer;font-weight:600}
+.mhead{border-left:8px solid var(--c);padding-left:14px;margin:10px 0 18px}
+.mhead h2{font-size:44px;font-weight:800}
+.mhead p{color:var(--muted);margin:6px 0 0}
+.ex{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.ex summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ex summary::-webkit-details-marker{display:none}
+.ex summary h3{font-size:22px;font-weight:700}
+.ex summary span{color:var(--muted);font-size:14px;white-space:nowrap}
+.ex[open] summary{border-bottom:1px solid var(--line)}
+.exbody{padding:14px 16px 16px}
+.exbody h4{margin:14px 0 4px;font-size:15px;font-weight:600;color:var(--c)}
+.exbody h4:first-child{margin-top:0}
+.exbody p,.exbody ul{margin:0}
+.exbody ul{padding-left:20px}
+.exbody li{margin:3px 0}
+.yt{display:inline-block;margin-top:16px;background:var(--ink);color:var(--surface);text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+.card h3{font-size:24px;margin-bottom:8px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form label{display:flex;flex-direction:column;font-size:14px;color:var(--muted);gap:4px}
+.form .full{grid-column:1/-1}
+input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;width:100%}
+.primary{background:var(--core);color:#fff;border:0;border-radius:8px;padding:12px;font-weight:600;cursor:pointer;grid-column:1/-1}
+.result{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.result div{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
+.result b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:28px}
+.result small{color:var(--muted)}
+.seg{display:flex;background:var(--bg);border-radius:8px;padding:4px;margin-bottom:12px}
+.seg button{flex:1;border:0;background:none;padding:8px;border-radius:6px;cursor:pointer;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink)}
+.meal{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.meal:first-of-type{border-top:0}
+.meal b{font-weight:600}
+.note{color:var(--muted);font-size:14px}
+ul.tight{padding-left:20px;margin:0}
+ul.tight li{margin:4px 0}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--tab);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav.tabs button{flex:1;border:0;background:none;padding:14px 0;font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:700;color:var(--muted);cursor:pointer}
+nav.tabs button[aria-current="page"]{color:var(--ink);box-shadow:inset 0 3px 0 var(--push)}
+.overflow{overflow-x:auto}
+@media (max-width:420px){.result{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:no-preference){.view{animation:in .18s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav class="tabs" aria-label="Sections">
+  <button id="tabW" aria-current="page">Workouts</button>
+  <button id="tabD">Diet plan</button>
+</nav>
+<script>
+const R = {push:{n:"Upper body — push",c:"var(--push)"},pull:{n:"Upper body — pull",c:"var(--pull)"},legs:{n:"Legs & glutes",c:"var(--legs)"},core:{n:"Core",c:"var(--core)"}};
+
+// e: [name, sets, target, setup, [cues], mistake]
+const M = [
+ {id:"chest",name:"Chest",r:"push",info:"Pectoralis major (upper/clavicular and mid-lower/sternal heads) plus pec minor. Incline angles bias the upper chest; flat and decline bias the mid and lower fibres.",e:[
+  ["Barbell bench press","4 × 6–10","Mid chest, front delts, triceps","Lie with eyes under the bar, feet flat, grip just wider than shoulders.",["Pull shoulder blades back and down, keep a slight arch in the upper back","Lower the bar to the lower chest with elbows about 45–70° from your torso","Press up and slightly back toward your face, wrists stacked over elbows"],"Flaring elbows to 90° — it shifts stress onto the shoulder joint."],
+  ["Incline dumbbell press","3 × 8–12","Upper chest","Set the bench to 30°. A steeper angle turns it into a shoulder press.",["Start with dumbbells over the upper chest, palms forward or slightly angled","Lower until you feel a stretch across the upper chest","Press up and slightly inward without clanking the weights"],"Raising the bench to 45°+ so the front delts take over."],
+  ["Push-up","3 × max","Whole chest, triceps, core","Hands slightly wider than shoulders, body in one straight line.",["Brace abs and squeeze glutes so hips don’t sag","Lower until chest is a fist from the floor","Hands wider = more chest, narrower = more triceps"],"Letting the hips drop or the head poke forward."],
+  ["Cable fly (high-to-low)","3 × 12–15","Lower and mid chest","Pulleys set high, step forward into a split stance, slight bend in elbows.",["Keep the elbow bend fixed — this is a hug, not a press","Sweep hands down and together in front of your hips","Squeeze for one second, return slowly to a stretch"],"Bending and straightening the elbows, turning it into a press."]
+ ]},
+ {id:"back",name:"Back",r:"pull",info:"Lats (width), traps and rhomboids (thickness), erector spinae (lower back). Pulling toward the hips favours lats; pulling toward the chest with elbows wide favours upper back.",e:[
+  ["Pull-up / lat pulldown","4 × 6–12","Lats, biceps","Grip a little wider than shoulders. For pulldowns, lock thighs under the pad.",["Start by pulling shoulder blades down before bending elbows","Drive elbows down toward your back pockets","Bring the bar to the upper chest, lean back only slightly"],"Swinging or yanking with momentum instead of pulling with the lats."],
+  ["Barbell row","4 × 8–10","Mid back, lats, rear delts","Hinge at the hips until torso is around 45°, knees soft, back flat.",["Brace your core like you’re about to be punched","Pull the bar to your belly button, elbows close for lats","Lower under control without rounding the lower back"],"Standing up more with each rep so it becomes a shrug."],
+  ["Seated cable row","3 × 10–12","Rhomboids, mid traps, lats","Sit tall, slight knee bend, chest up.",["Pull the handle to your lower ribs","Squeeze shoulder blades together at the end","Let the arms stretch forward without rounding your spine"],"Rocking the torso back and forth to move the weight."],
+  ["Romanian deadlift","3 × 8–10","Lower back, hamstrings, glutes","Feet hip-width, bar against thighs, soft knees.",["Push hips back as if closing a car door with your butt","Keep the bar touching your legs all the way","Stop when hamstrings are stretched, usually mid-shin"],"Rounding the lower back to reach the floor."]
+ ]},
+ {id:"shoulders",name:"Shoulders",r:"push",info:"Three deltoid heads: front (pressing), side (width), rear (posture and pulling). Most people overwork the front and neglect the side and rear.",e:[
+  ["Overhead press","4 × 6–10","Front and side delts, triceps","Stand, bar on upper chest, grip just outside shoulders, glutes squeezed.",["Move your head back slightly so the bar travels straight up","Push your head ‘through the window’ once the bar passes it","Lock out with the bar over the middle of your feet"],"Leaning back hard and turning it into an incline press."],
+  ["Lateral raise","4 × 12–20","Side delts","Light dumbbells at your sides, slight forward lean.",["Lead with elbows, not hands, slight bend in elbows","Raise to shoulder height — no higher","Think ‘push the dumbbells out to the walls’"],"Shrugging the traps or swinging heavy weight."],
+  ["Reverse pec deck / rear delt fly","3 × 12–15","Rear delts","On the machine, face the pad, handles at shoulder height.",["Arms almost straight, sweep out in a wide arc","Keep shoulder blades still — move from the shoulder","Pause when arms are in line with your body"],"Squeezing the shoulder blades so the traps do the work."],
+  ["Face pull","3 × 15","Rear delts, rotator cuff","Rope on a cable at forehead height, thumbs toward you.",["Pull the rope toward your eyes, splitting the ends apart","Finish with fists beside your ears, like a double-biceps pose","Control the return"],"Pulling to the chest with elbows low."]
+ ]},
+ {id:"biceps",name:"Biceps",r:"pull",info:"Biceps brachii (long and short heads) and brachialis. Arms behind the body stretch the long head; arms in front bias the short head; neutral grip hits brachialis.",e:[
+  ["Barbell curl","3 × 8–12","Both biceps heads","Stand tall, shoulder-width underhand grip.",["Pin elbows to your sides the whole time","Curl until forearms are vertical, squeeze","Lower over 2–3 seconds"],"Swinging the hips to throw the bar up."],
+  ["Incline dumbbell curl","3 × 10–12","Long head (peak)","Bench at 45°, arms hanging straight behind your torso.",["Keep upper arms pointing at the floor","Curl without letting elbows drift forward","Feel a deep stretch at the bottom"],"Moving the elbows forward to make it easier."],
+  ["Hammer curl","3 × 10–12","Brachialis, forearm","Palms facing each other, dumbbells at sides.",["Curl straight up, thumbs to the ceiling","Keep wrists neutral and locked","One arm at a time or both together"],"Rotating into a regular curl at the top."],
+  ["Preacher curl","3 × 10–12","Short head","Armpit tight against the top of the pad.",["Upper arm stays flat on the pad","Lower until arms are nearly straight","Don’t bounce out of the bottom"],"Lifting your butt off the seat to shorten the range."]
+ ]},
+ {id:"triceps",name:"Triceps",r:"push",info:"Three heads — long, lateral, medial. The long head crosses the shoulder, so overhead work stretches it best. Triceps make up about two-thirds of upper-arm size.",e:[
+  ["Close-grip bench press","3 × 6–10","All three heads, chest","Grip about shoulder-width on a flat bench.",["Tuck elbows close to your ribs","Lower to the lower chest","Press up focusing on locking out the elbows"],"Gripping too narrow, which strains the wrists."],
+  ["Overhead cable / dumbbell extension","3 × 10–12","Long head","Face away from the cable or hold one dumbbell overhead with both hands.",["Keep elbows pointing forward, close to your head","Lower behind your head to a deep stretch","Extend until arms are straight"],"Letting elbows flare wide."],
+  ["Rope pushdown","3 × 12–15","Lateral head","Cable high, slight forward lean, elbows at sides.",["Elbows stay glued in place","Push down and spread the rope ends apart","Squeeze at the bottom"],"Using your body weight to push down."],
+  ["Bench dip","3 × max","All heads","Hands on a bench edge behind you, legs out front.",["Keep your back close to the bench","Lower until upper arms are parallel to the floor","Press back up through the palms"],"Dropping too deep, which stresses the front of the shoulder."]
+ ]},
+ {id:"forearms",name:"Forearms",r:"pull",info:"Wrist flexors (palm side), wrist extensors (back side) and brachioradialis. Grip strength carries over to every pulling lift.",e:[
+  ["Wrist curl","3 × 15–20","Wrist flexors","Forearms on a bench, palms up, wrists over the edge.",["Let the bar roll to your fingertips","Curl the wrists up as high as possible","Keep forearms flat"],"Lifting forearms off the bench."],
+  ["Reverse curl","3 × 12","Brachioradialis, extensors","Overhand grip on a barbell or EZ bar.",["Elbows pinned to sides","Curl up keeping wrists straight","Slow lowering"],"Bending the wrists back."],
+  ["Farmer’s carry","3 × 30–40 m","Grip, traps, core","Heavy dumbbells at your sides, stand tall.",["Shoulders back, chest up","Short, quick steps","Squeeze the handles as hard as you can"],"Leaning or letting shoulders round forward."]
+ ]},
+ {id:"abs",name:"Abs & core",r:"core",info:"Rectus abdominis (six-pack), obliques (rotation and side bending), transverse abdominis (deep bracing). Visible abs depend mostly on body fat — that’s the diet tab’s job.",e:[
+  ["Plank","3 × 30–60 s","Deep core, rectus abdominis","Forearms under shoulders, body straight from head to heels.",["Tuck the pelvis slightly and squeeze glutes","Pull elbows toward toes without moving them","Breathe steadily — don’t hold your breath"],"Hips sagging or piking up high."],
+  ["Hanging knee / leg raise","3 × 10–15","Lower abs","Hang from a bar, shoulders engaged.",["Curl the pelvis up, don’t just lift the legs","Bring knees toward the chest","Lower slowly without swinging"],"Swinging to get the legs up."],
+  ["Cable crunch","3 × 12–15","Rectus abdominis","Kneel facing a high cable, rope beside your head.",["Hips stay still","Curl your ribs toward your pelvis","Think ‘round the spine’, not ‘bend at the hips’"],"Sitting back on the heels and pulling with the arms."],
+  ["Russian twist / cable woodchop","3 × 12 per side","Obliques","Sit leaning back slightly, or stand side-on to a cable.",["Rotate from the ribs, not just the arms","Keep the movement controlled","Exhale as you twist"],"Twisting only the arms while the torso stays still."]
+ ]},
+ {id:"glutes",name:"Glutes",r:"legs",info:"Gluteus maximus (hip extension), medius and minimus (hip stability). Hip thrusts load the top of the range; squats and lunges load the stretched position.",e:[
+  ["Barbell hip thrust","4 × 8–12","Gluteus maximus","Upper back on a bench edge, bar padded over hips, feet hip-width.",["Shins vertical at the top","Tuck the chin and keep ribs down","Drive through heels, squeeze glutes hard for 1 second"],"Arching the lower back instead of extending the hips."],
+  ["Bulgarian split squat","3 × 8–10 per leg","Glutes, quads","Rear foot on a bench, front foot about two steps ahead.",["Lean torso slightly forward to bias glutes","Lower straight down until back knee nearly touches","Push through the front heel"],"Front foot too close, so the knee shoots far past the toes."],
+  ["Cable kickback","3 × 12–15 per leg","Gluteus maximus","Ankle strap on a low cable, hold the frame, slight forward lean.",["Kick back and slightly up","Keep the lower back neutral","Squeeze at the top"],"Swinging the leg and arching the back."],
+  ["Hip abduction","3 × 15–20","Glute medius","Seated machine or band around knees.",["Lean forward slightly for more glute","Push knees out under control","Pause at the widest point"],"Bouncing the weight."]
+ ]},
+ {id:"quads",name:"Quads",r:"legs",info:"Four muscles on the front of the thigh. Deep knee bend with an upright torso biases the quads.",e:[
+  ["Back squat","4 × 5–8","Quads, glutes, core","Bar on upper traps, feet shoulder-width, toes turned out 15–30°.",["Big breath, brace hard before each rep","Push knees out in line with toes","Sit down between your heels to at least thigh-parallel","Drive up keeping chest and hips rising together"],"Knees caving in or heels lifting."],
+  ["Leg press","3 × 10–12","Quads","Feet shoulder-width, mid-platform. Lower placement = more quads.",["Lower until knees are near 90° or deeper if hips stay down","Keep lower back pressed into the pad","Don’t lock the knees at the top"],"Letting the hips curl up off the seat at the bottom."],
+  ["Leg extension","3 × 12–15","Rectus femoris, all quads","Knee joint lined up with the machine’s pivot.",["Straighten fully and squeeze 1 second","Lower slowly","Hold the handles to stay seated"],"Kicking the weight up with momentum."],
+  ["Walking lunge","3 × 10 per leg","Quads, glutes","Dumbbells at sides, stand tall.",["Take a medium step","Both knees bend to about 90°","Push through the front foot into the next step"],"Short steps that pile stress onto the knee."]
+ ]},
+ {id:"hamstrings",name:"Hamstrings",r:"legs",info:"Three muscles on the back of the thigh that bend the knee and extend the hip. Train both: hinges (RDL) and curls.",e:[
+  ["Romanian deadlift","4 × 8–10","Hamstrings, glutes","Feet hip-width, soft knees, bar at hips.",["Hinge hips back, bar slides down the legs","Back flat, chest proud","Stop at a deep stretch, then drive hips forward"],"Squatting it down instead of hinging."],
+  ["Lying / seated leg curl","3 × 10–15","Hamstrings","Pad just above the heels, knees at the pivot.",["Hips pressed into the pad","Curl heels to butt","Lower over 3 seconds"],"Hips lifting so the lower back takes over."],
+  ["Good morning","3 × 10","Hamstrings, lower back","Light bar on upper back, soft knees.",["Push hips back, torso tips forward","Go until torso is near parallel or hamstrings stop you","Keep the back flat"],"Going too heavy too soon."]
+ ]},
+ {id:"calves",name:"Calves",r:"legs",info:"Gastrocnemius (trained with straight knees) and soleus (trained with bent knees). Calves recover fast and respond to high reps and full range.",e:[
+  ["Standing calf raise","4 × 10–15","Gastrocnemius","Balls of feet on a step, knees straight.",["Drop heels to a full stretch, pause 1 second","Rise onto the big toe as high as possible","Squeeze at the top 1 second"],"Bouncing through half reps."],
+  ["Seated calf raise","3 × 15–20","Soleus","Knees bent 90°, pad on lower thighs.",["Full stretch at the bottom","Push up through the big toe","Slow tempo"],"Short range of motion."],
+  ["Single-leg calf raise","3 × 12–15 per leg","Gastrocnemius, balance","On a step, hold a wall for balance.",["Fully straight knee","Full stretch, full squeeze","Add a dumbbell when easy"],"Rolling onto the outside of the foot."]
+ ]}
+];
+
+const app = document.getElementById("app");
+const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " proper form tutorial");
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+function home(){
+  let h = `<section class="view hero"><div class="plates"><span style="background:var(--push)"></span><span style="background:var(--pull)"></span><span style="background:var(--legs)"></span><span style="background:var(--core)"></span></div><h1>Pick a muscle</h1><p>Each exercise shows how to set up, where to position your body to hit the target muscle, and the mistake to avoid.</p>`;
+  for (const k of Object.keys(R)){
+    const list = M.filter(m=>m.r===k); if(!list.length) continue;
+    h += `<h2 class="region"><i style="background:${R[k].c}"></i>${R[k].n}</h2><div class="grid">`;
+    h += list.map(m=>`<button class="muscle" style="--c:${R[k].c}" data-id="${m.id}"><b>${m.name}</b><small>${m.e.length} exercises</small></button>`).join("");
+    h += `</div>`;
+  }
+  app.innerHTML = h + `</section>`;
+  app.querySelectorAll(".muscle").forEach(b=>b.onclick=()=>muscle(b.dataset.id));
+}
+
+function muscle(id){
+  const m = M.find(x=>x.id===id), c = R[m.r].c;
+  let h = `<section class="view" style="--c:${c}"><button class="back" id="bk">‹ All muscles</button><div class="mhead"><h2>${m.name}</h2><p>${m.info}</p></div>`;
+  h += m.e.map(([n,s,t,set,cues,mis],i)=>`<details class="ex"${i===0?" open":""}><summary><h3>${n}</h3><span>${s}</span></summary><div class="exbody">
+    <h4>Targets</h4><p>${t}</p>
+    <h4>Setup</h4><p>${set}</p>
+    <h4>Body position</h4><ul>${cues.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <h4>Avoid</h4><p>${mis}</p>
+    <a class="yt" href="${yt(n)}" target="_blank" rel="noopener">Watch tutorials on YouTube</a></div></details>`).join("");
+  app.innerHTML = h + `<p class="note">Rest 60–90 s on isolation moves and 2–3 min on heavy compound lifts. Add weight or a rep when you hit the top of the rep range on all sets.</p></section>`;
+  document.getElementById("bk").onclick = home;
+  window.scrollTo(0,0);
+}
+
+const PLANS = {
+  "Non-veg":[
+    ["Breakfast","3 whole eggs + 2 whites omelette, 2 slices wholegrain toast, 1 banana"],
+    ["Snack","Greek yogurt with a handful of nuts and berries"],
+    ["Lunch","150 g grilled chicken breast, 1 cup rice, mixed salad with olive oil"],
+    ["Pre-workout","Oats with milk, or a banana with peanut butter"],
+    ["Dinner","150 g fish or lean meat, sweet potato, steamed vegetables"],
+    ["Before bed","Glass of milk or a casein shake (optional)"]],
+  "Vegetarian":[
+    ["Breakfast","Oats cooked in milk with whey or chia seeds, 1 fruit"],
+    ["Snack","Roasted chickpeas or a handful of almonds"],
+    ["Lunch","Paneer or tofu curry (150 g), 2 rotis or 1 cup rice, salad"],
+    ["Pre-workout","Peanut butter toast or a fruit with yogurt"],
+    ["Dinner","Dal or rajma (1.5 cups), brown rice or quinoa, sautéed vegetables"],
+    ["Before bed","Greek yogurt or a glass of milk"]],
+  "Vegan":[
+    ["Breakfast","Tofu scramble with vegetables, wholegrain toast"],
+    ["Snack","Soy yogurt with seeds, or a pea-protein shake"],
+    ["Lunch","Lentil and quinoa bowl with beans, avocado and greens"],
+    ["Pre-workout","Banana with peanut butter"],
+    ["Dinner","Tempeh or seitan stir-fry with rice and vegetables"],
+    ["Before bed","Soy milk with a handful of nuts"]]
+};
+let plan = "Non-veg", calc = null;
+
+function diet(){
+  const g = k => { try { return localStorage.getItem("ig-"+k) || ""; } catch(e){ return ""; } };
+  let h = `<section class="view hero"><div class="plates"><span style="background:var(--core)"></span></div><h1>Diet plan</h1><p>Training builds the muscle, food decides whether you see it. Work out your daily targets, then follow the meal template.</p></section>
+  <section class="card"><h3>Your daily targets</h3><div class="form">
+    <label>Sex<select id="sx"><option value="m">Male</option><option value="f">Female</option></select></label>
+    <label>Age<input id="ag" type="number" inputmode="numeric" min="14" max="90" value="${g("ag")||25}"></label>
+    <label>Weight (kg)<input id="wt" type="number" inputmode="decimal" min="30" max="250" value="${g("wt")||70}"></label>
+    <label>Height (cm)<input id="ht" type="number" inputmode="decimal" min="120" max="230" value="${g("ht")||175}"></label>
+    <label class="full">Activity<select id="ac"><option value="1.2">Desk job, little exercise</option><option value="1.375">Train 1–3 days a week</option><option value="1.55" selected>Train 3–5 days a week</option><option value="1.725">Train 6–7 days a week</option></select></label>
+    <label class="full">Goal<select id="gl"><option value="-450">Lose fat</option><option value="0">Maintain / recomp</option><option value="300" selected>Build muscle (lean bulk)</option></select></label>
+    <button class="primary" id="go">Calculate targets</button></div><div id="res"></div></section>
+  <section class="card"><h3>Sample day</h3><div class="seg" role="group" aria-label="Diet type">${Object.keys(PLANS).map(p=>`<button aria-pressed="${p===plan}" data-p="${p}">${p}</button>`).join("")}</div>
+    ${PLANS[plan].map(([t,f])=>`<div class="meal"><b>${t}</b><span>${f}</span></div>`).join("")}
+    <p class="note">Scale portions up or down to land near your calorie target.</p></section>
+  <section class="card"><h3>Rules that matter most</h3><ul class="tight">
+    <li>Hit your protein target daily — it matters more than meal timing.</li>
+    <li>Eat protein at every meal, roughly 25–40 g each.</li>
+    <li>Fill half your plate with vegetables for fibre and micronutrients.</li>
+    <li>Drink about 35 ml of water per kg of body weight, more when you sweat.</li>
+    <li>Sleep 7–9 hours; most muscle repair happens then.</li>
+    <li>Weigh yourself weekly, same time of day. Adjust calories by 150–200 if nothing changes after 2 weeks.</li>
+  </ul><p class="note">General guidance, not medical advice. If you have a health condition, check with a doctor or registered dietitian first.</p></section>`;
+  app.innerHTML = h;
+  document.getElementById("sx").value = g("sx") || "m";
+  document.getElementById("go").onclick = compute;
+  app.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{plan=b.dataset.p; diet(); if(calc) show(calc); document.querySelector(".seg").scrollIntoView({block:"center"});});
+  if (calc) show(calc);
+}
+
+function compute(){
+  const v = id => document.getElementById(id).value;
+  const sx=v("sx"), ag=+v("ag"), wt=+v("wt"), ht=+v("ht"), ac=+v("ac"), gl=+v("gl");
+  if(!(ag>0&&wt>0&&ht>0)){ document.getElementById("res").innerHTML=`<p class="note">Enter your age, weight and height to calculate.</p>`; return; }
+  try { ["sx","ag","wt","ht"].forEach(k=>localStorage.setItem("ig-"+k, v(k))); } catch(e){}
+  const bmr = 10*wt + 6.25*ht - 5*ag + (sx==="m"?5:-161);
+  const kcal = Math.round((bmr*ac + gl)/10)*10;
+  const p = Math.round(wt*(gl<0?2.2:1.8)), f = Math.round(kcal*0.25/9), c = Math.max(0,Math.round((kcal - p*4 - f*9)/4));
+  calc = {kcal,p,f,c}; show(calc);
+}
+function show({kcal,p,f,c}){
+  const r = document.getElementById("res"); if(!r) return;
+  r.innerHTML = `<div class="result"><div><b>${kcal}</b><small>kcal</small></div><div><b>${p} g</b><small>protein</small></div><div><b>${c} g</b><small>carbs</small></div><div><b>${f} g</b><small>fat</small></div></div>`;
+}
+
+const tW=document.getElementById("tabW"), tD=document.getElementById("tabD");
+function tab(w){ tW.toggleAttribute("aria-current",w); tD.toggleAttribute("aria-current",!w); if(w){tW.setAttribute("aria-current","page")}else{tD.setAttribute("aria-current","page")} w?home():diet(); window.scrollTo(0,0); }
+tW.onclick=()=>tab(true); tD.onclick=()=>tab(false);
+home();
+</script>
+</body>
+</html>
